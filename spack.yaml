@@ -1,0 +1,4 @@
+spack:
+  specs:
+  - py-mochi-bedrock
+  concretization: together
