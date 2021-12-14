@@ -1,4 +1,5 @@
 spack:
   specs:
   - py-mochi-bedrock
+  - py-setuptools
   concretization: together

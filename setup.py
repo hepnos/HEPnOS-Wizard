@@ -1,5 +1,4 @@
 from setuptools import setup, find_packages, Extension
-import pkgconfig
 import os.path
 
 with open("README.md", "r") as fh:
@@ -24,4 +23,9 @@ setup(
         "bedrock"
     ],
     python_requires='>=3.6',
+    entry_points={
+        'console_scripts': [
+            'hepnos-gen-config = hepnos.cmd:gen_config',
+        ],
+    },
 )
