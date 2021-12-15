@@ -55,8 +55,8 @@ def gen_config(output: str='',
         raise ValueError('Total number of databases is smaller than the number of providers')
     if num_rpc_pools > num_rpc_xstreams:
         raise ValueError('Number of RPC pools exceeds number of RPC xstreams')
-    if num_providers > num_rpc_pools:
-        raise ValueError('Number of providers exceeds the number of RPC pools')
+    if num_providers < num_rpc_pools:
+        raise ValueError('Number of RPC pools exceeds the number of providers')
     # define the rool ProcSpec
     proc_spec = bedrock.spec.ProcSpec(margo=address)
     # add the yokan library
