@@ -85,7 +85,7 @@ def gen_config(output: str='',
     for i in range(num_rpc_xstreams):
         proc_spec.margo.argobots.xstreams.add(
             name=f'__rpc_{i}__',
-            scheduler=bedrock.spec.SchedulerSpec(type='basic_wait', pools=[rpc_pools[i%num_rpc_pools]]))
+            scheduler=bedrock.spec.SchedulerSpec(type='basic_wait', pools=[rpc_pools[i%len(rpc_pools)]]))
     # create databases
     dbs = []
     for i in range(num_dataset_databases):
@@ -101,7 +101,7 @@ def gen_config(output: str='',
     # add providers
     providers = []
     for i in range(num_providers):
-        proc_spec.providers.append(gen_provider_spec(i, rpc_pools[i%num_rpc_pools], []))
+        proc_spec.providers.append(gen_provider_spec(i, rpc_pools[i%len(rpc_pools)], []))
     # distribute databases to providers
     for i, db in enumerate(dbs):
         proc_spec.providers[i%num_providers].config['databases'].append(db)
