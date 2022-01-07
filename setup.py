@@ -20,7 +20,7 @@ setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-        "bedrock"
+        "py-mochi-bedrock"
     ],
     python_requires='>=3.6',
     entry_points={
