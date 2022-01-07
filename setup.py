@@ -25,7 +25,7 @@ setup(
     python_requires='>=3.6',
     entry_points={
         'console_scripts': [
-            'hepnos-gen-config = hepnos.cmd:cmd_gen_config',
+            'hepnos-gen-config = hepnos_wizard.cmd:cmd_gen_config',
         ],
     },
 )
