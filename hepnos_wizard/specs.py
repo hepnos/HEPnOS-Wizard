@@ -13,7 +13,7 @@
 """
 
 
-import bedrock.spec
+import mochi.bedrock.spec
 import copy
 import json
 
