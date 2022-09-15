@@ -43,10 +43,16 @@ def cmd_gen_config():
                         help='Number of databases for events')
     parser.add_argument('--num-product-databases', type=int, default=1,
                         help='Number of databases for products')
+    parser.add_argument('--database-type', type=str, default='map',
+                        help='Type of database')
+    parser.add_argument('--database-path-prefix', type=str, default='',
+                        help='Path to databases, if required by the backend')
     parser.add_argument('--ssg-group-file', type=str, default='hepnos.ssg',
                         help='SSG file name')
+    parser.add_argument('--jx9', action='store_true',
+                        help='Produce a jx9 output instead of json')
     args = parser.parse_args()
     gen_config(**vars(args))
 
 if __name__ == '__main__':
-    cmd_gen_config();
+    cmd_gen_config()
