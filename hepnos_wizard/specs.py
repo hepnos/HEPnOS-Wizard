@@ -42,6 +42,14 @@ def gen_provider_spec(provider_id: int=0, pool=mochi.bedrock.spec.PoolSpec, data
                                            provider_id=provider_id,
                                            config={'databases': databases})
 
+
+def gen_queue_provider_spec(provider_id: int=0, pool=mochi.bedrock.spec.PoolSpec):
+    return mochi.bedrock.spec.ProviderSpec(name=f'hepnos_queues_{provider_id}',
+                                           type='hqp', pool=pool,
+                                           provider_id=provider_id,
+                                           config={})
+
+
 def gen_config(output: str='',
                address: str='na+sm',
                use_progress_xstream: bool=False,
@@ -53,6 +61,7 @@ def gen_config(output: str='',
                num_subrun_databases: int=1,
                num_event_databases: int=1,
                num_product_databases: int=1,
+               num_queue_providers: int=0,
                database_type: str='map',
                database_path_prefix: str='',
                ssg_group_file: str='hepnos.ssg',
@@ -72,6 +81,9 @@ def gen_config(output: str='',
     proc_spec = mochi.bedrock.spec.ProcSpec(margo=address)
     # add the yokan library
     proc_spec.libraries['yokan'] = 'libyokan-bedrock-module.so'
+    # add the hqp library
+    if num_queue_providers > 0:
+        proc_spec.libraries['hqp'] = 'libhepnos-queue.so'
     # add SSG info
     proc_spec.ssg.add(name='hepnos', bootstrap='mpi', group_file=ssg_group_file,
                       pool=proc_spec.margo.argobots.pools[0],
@@ -118,6 +130,10 @@ def gen_config(output: str='',
     # distribute databases to providers
     for i, db in enumerate(dbs):
         proc_spec.providers[i%num_providers].config['databases'].append(db)
+    # queue providers
+    j = num_providers
+    for i in range(num_queue_providers):
+        proc_spec.providers.append(gen_queue_provider_spec(i, rpc_pools[(i+j)%len(rpc_pools)]))
     # output result to file or to stdin
     json_config = proc_spec.to_json(indent=4)
     if jx9:

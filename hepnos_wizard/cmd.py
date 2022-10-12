@@ -32,7 +32,9 @@ def cmd_gen_config():
     parser.add_argument('--num-rpc-pools', type=int, default=0,
                         help='Number of RPC pools')
     parser.add_argument('--num-providers', type=int, default=1,
-                        help='Number of providers')
+                        help='Number of providers for databases')
+    parser.add_argument('--num-queue-providers', type=int, default=0,
+                        help='Number of providers for queues')
     parser.add_argument('--num-dataset-databases', type=int, default=1,
                         help='Number of databases for datasets')
     parser.add_argument('--num-run-databases', type=int, default=1,
