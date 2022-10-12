@@ -33,6 +33,9 @@ def gen_database_spec(contains: str, index: int=0, type: str="map", path: str=''
             config['path'] = os.path.join(path, name)
         else:
             raise RuntimeError(f'"--database-path-prefix" expected for databases of type {type}')
+    if type == 'rocksdb':
+        config['logger_redirects_to_margo'] = True
+        config['info_log_level'] = 'debug'
     return { "name": name, "type": type, "config": config }
 
 
